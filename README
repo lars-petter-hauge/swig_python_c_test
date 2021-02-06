@@ -1,0 +1,36 @@
+----------
+
+Native example hello
+
+Compile and link:
+g++ -g -fPIC -shared wrapper_native_example.c native_example.c -o hello.so -I /usr/local/Cellar/python@3.8/3.8.7_2/Frameworks/Python.framework/Versions/3.8/include/python3.8/ -lpython3.8 -dynamiclib -L /usr/local/opt/python@3.8/Frameworks/Python.framework/Versions/3.8/lib/python3.8/config-3.8-darwin -ldl -framework CoreFoundation
+
+`python run_native_example.py`
+
+----------
+
+Swig tutorial
+
+create bindings:
+swig -python example.i
+
+Compile and link:
+g++ -g -fPIC -shared example.c example_wrap.c -o _example.so -I /usr/local/Cellar/python@3.8/3.8.7_2/Frameworks/Python.framework/Versions/3.8/include/python3.8/ -lpython3.8 -dynamiclib -L /usr/local/opt/python@3.8/Frameworks/Python.framework/Versions/3.8/lib/python3.8/config-3.8-darwin -ldl -framework CoreFoundation
+
+`python run_example.py`
+----------
+
+Swig with skbuild
+
+python setup.py install -- -DCMAKE_BUILD_TYPE=Debug
+
+`python example_with_skbuild/run_example.py`
+
+----------
+Debug:
+
+To have lldb be able to set breakpoint in a dynamically loaded library, preload the image:
+lldb python
+image add <name>.so
+
+then continue to set breakpoint where appropriate
