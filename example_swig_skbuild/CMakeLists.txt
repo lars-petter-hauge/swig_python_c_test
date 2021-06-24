@@ -23,7 +23,7 @@ swig_link_libraries(example clib)
 swig_link_libraries(example ${PYTHON_LIBRARIES})
 
 install(TARGETS _example
-          LIBRARY DESTINATION lib)
+          LIBRARY DESTINATION example)
 
 add_custom_command(
         TARGET _example POST_BUILD
