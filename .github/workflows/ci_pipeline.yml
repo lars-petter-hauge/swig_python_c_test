@@ -24,25 +24,26 @@ jobs:
         with:
           python-version: "${{ matrix.python-version }}"
 
-      - name: "Install"
+      - name: "Install native"
         if: ${{ env.type == 'native' }}
         run: >
           pushd example_native
           ./build.sh
           export PYTHONPATH=$PWD
           popd
+        
+      - name: "Install with swig"
         if: ${{ env.type == 'swig' }}
         run: >
           pushd example_swig
           ./build.sh
           export PYTHONPATH=$PWD
           popd
+      
+      - name: "Install with swig and skbuild"
         if: ${{ env.type == 'swig_skbuild' }}
         run: >
           pushd swig_skbuild
           ./build.sh
           export PYTHONPATH=$PWD
           popd
-
-      - name: "Run test on ${{ matrix.os }} (${{ matrix.python-version }}) for {{ matrix.type }}"
-        run: "python -m tox"
