@@ -32,26 +32,26 @@ jobs:
         run: >
           pushd example_native &&
           ./build.sh &&
-          echo "pythonpath=$PWD" >> $GITHUB_ENV
+          echo "pythonpath=$PWD" >> $GITHUB_ENV &&
           popd
-        
+
       - name: "Install with swig"
         if: matrix.type == 'swig'
         run: >
           pushd example_swig &&
           ./build.sh &&
-          echo "pythonpath=$PWD" >> $GITHUB_ENV
+          echo "pythonpath=$PWD" >> $GITHUB_ENV &&
           popd
-      
+
       - name: "Install with swig and skbuild"
         if: matrix.type == 'swig_skbuild'
         run: >
           pushd example_swig_skbuild &&
           ./build.sh &&
-          echo "pythonpath=$PWD" >> $GITHUB_ENV
+          echo "pythonpath=$PWD" >> $GITHUB_ENV &&
           popd
 
       - name: "Run tests"
         run: >
-          export PYTHONPATH=${{ env.pythonpath }}
+          export PYTHONPATH=${{ env.pythonpath }} &&
           pytest tests
