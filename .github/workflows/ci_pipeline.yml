@@ -27,23 +27,23 @@ jobs:
       - name: "Install native"
         if: matrix.type == 'native'
         run: >
-          pushd example_native
-          ./build.sh
-          export PYTHONPATH=$PWD
+          pushd example_native &&
+          ./build.sh &&
+          export PYTHONPATH=$PWD &&
           popd
         
       - name: "Install with swig"
         if: matrix.type == 'swig'
         run: >
-          pushd example_swig
-          ./build.sh
-          export PYTHONPATH=$PWD
+          pushd example_swig &&
+          ./build.sh &&
+          export PYTHONPATH=$PWD &&
           popd
       
       - name: "Install with swig and skbuild"
         if: matrix.type == 'swig_skbuild'
         run: >
-          pushd swig_skbuild
-          ./build.sh
-          export PYTHONPATH=$PWD
+          pushd swig_skbuild &&
+          ./build.sh &&
+          export PYTHONPATH=$PWD &&
           popd
