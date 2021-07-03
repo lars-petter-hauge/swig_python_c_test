@@ -32,7 +32,7 @@ jobs:
         run: >
           pushd example_native &&
           ./build.sh &&
-          cat &PWD > PYTHON_PATH &&
+          cat $PWD > PYTHON_PATH &&
           popd
         
       - name: "Install with swig"
@@ -40,7 +40,7 @@ jobs:
         run: >
           pushd example_swig &&
           ./build.sh &&
-          cat &PWD > PYTHON_PATH &&
+          cat $PWD > PYTHON_PATH &&
           popd
       
       - name: "Install with swig and skbuild"
@@ -48,7 +48,7 @@ jobs:
         run: >
           pushd example_swig_skbuild &&
           ./build.sh &&
-          cat &PWD > PYTHON_PATH &&
+          cat $PWD > PYTHON_PATH &&
           popd &&
 
       - name: "Run tests"
