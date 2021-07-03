@@ -1,5 +1,7 @@
-
-from example import example
+try:
+    from example import add
+except ImportError: # Example is installed under example namespace in skbuild
+    from example.example import add
 
 def test_example():
-    assert example.add(2,3) == 5
+    assert add(2,3) == 5

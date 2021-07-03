@@ -32,7 +32,6 @@ jobs:
         run: >
           pushd example_native &&
           ./build.sh &&
-          python -c "import example; print(example.add(2,3))" &&
           export PYTHONPATH=$PWD &&
           popd
         
