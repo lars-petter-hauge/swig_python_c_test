@@ -49,9 +49,11 @@ jobs:
           pushd example_swig_skbuild &&
           ./build.sh &&
           echo "pythonpath=$PWD" >> $GITHUB_ENV &&
+          echo "ld_library_path=$PWD" >> $GITHUB_ENV &&
           popd
 
       - name: "Run tests"
         run: >
           export PYTHONPATH=${{ env.pythonpath }} &&
+          export LD_LIBRARY_PATH=${{ env.ld_library_path }} &&
           pytest tests
