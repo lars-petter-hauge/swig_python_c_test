@@ -25,7 +25,7 @@ jobs:
           python-version: "${{ matrix.python-version }}"
 
       - name: "install dependencies"
-        run: pip install pytest skbuild
+        run: pip install pytest scikit-build
 
       - name: "Install native"
         if: matrix.type == 'native'
