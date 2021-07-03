@@ -32,7 +32,8 @@ jobs:
         run: >
           pushd example_native &&
           ./build.sh &&
-          echo $PWD > ${{GITHUB_WORKSPACE}}/PYTHON_PATH &&
+          export PYTHONPATH=$PWD &&
+          echo "::set-env name=PYTHONPATH::PYTHONPATH" &&
           popd
         
       - name: "Install with swig"
@@ -53,5 +54,4 @@ jobs:
 
       - name: "Run tests"
         run: >
-          export PYTHONPATH=$(cat ${{GITHUB_WORKSPACE}}/PYTHON_PATH)
           pytest tests
