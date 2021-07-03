@@ -3,4 +3,5 @@ try:
 except ImportError: # Example is installed under example namespace in skbuild
     from example.example import add
 
-print(example.add(2,3))
+def test_example():
+    assert add(2,3) == 5
