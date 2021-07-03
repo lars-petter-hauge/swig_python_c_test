@@ -1,0 +1,56 @@
+name: CI
+
+on: [pull_request]
+
+jobs:
+  tests:
+    name: "P${{ matrix.python-version }} | ${{ matrix.os }} | ${{ matrix.type }}"
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        python-version: [3.8]
+        os: [ ubuntu-latest ]
+        type: ["native", "swig", "swig_skbuild"]
+
+    steps:
+      - uses: "actions/checkout@v2"
+        with:
+          fetch-depth: 0
+
+      - uses: "actions/setup-python@v2"
+        with:
+          python-version: "${{ matrix.python-version }}"
+
+      - name: "install dependencies"
+        run: pip install pytest scikit-build
+
+      - name: "Install native"
+        if: matrix.type == 'native'
+        run: >
+          pushd example_native &&
+          ./build.sh &&
+          echo "pythonpath=$PWD" >> $GITHUB_ENV &&
+          popd
+
+      - name: "Install with swig"
+        if: matrix.type == 'swig'
+        run: >
+          pushd example_swig &&
+          ./build.sh &&
+          echo "pythonpath=$PWD" >> $GITHUB_ENV &&
+          popd
+
+      - name: "Install with swig and skbuild"
+        if: matrix.type == 'swig_skbuild'
+        run: >
+          pushd example_swig_skbuild &&
+          ./build.sh &&
+          echo "pythonpath=$PWD" >> $GITHUB_ENV &&
+          echo "ld_library_path=$PWD" >> $GITHUB_ENV &&
+          popd
+
+      - name: "Run tests"
+        run: >
+          export PYTHONPATH=${{ env.pythonpath }} &&
+          export LD_LIBRARY_PATH=${{ env.ld_library_path }} &&
+          pytest tests
