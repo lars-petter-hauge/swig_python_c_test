@@ -25,7 +25,7 @@ jobs:
           python-version: "${{ matrix.python-version }}"
 
       - name: "Install native"
-        if: ${{ env.type == 'native' }}
+        if: matrix.type == 'native'
         run: >
           pushd example_native
           ./build.sh
@@ -33,7 +33,7 @@ jobs:
           popd
         
       - name: "Install with swig"
-        if: ${{ env.type == 'swig' }}
+        if: matrix.type == 'swig'
         run: >
           pushd example_swig
           ./build.sh
@@ -41,7 +41,7 @@ jobs:
           popd
       
       - name: "Install with swig and skbuild"
-        if: ${{ env.type == 'swig_skbuild' }}
+        if: matrix.type == 'swig_skbuild'
         run: >
           pushd swig_skbuild
           ./build.sh
