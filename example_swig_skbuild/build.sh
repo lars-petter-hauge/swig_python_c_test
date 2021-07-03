@@ -1,1 +1,1 @@
-python setup.py install -- -DCMAKE_BUILD_TYPE=Debug
+python setup.py develop -- -DCMAKE_BUILD_TYPE=Debug

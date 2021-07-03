@@ -10,7 +10,7 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
 file(GLOB EXAMPLE_LIB RELATIVE ${PROJECT_SOURCE_DIR} src/*.c)
 
-add_library(clib SHARED ${EXAMPLE_LIB})
+add_library(clib STATIC ${EXAMPLE_LIB})
 target_include_directories(clib PUBLIC ${PROJECT_SOURCE_DIR}/include)
 
 install(TARGETS clib
