@@ -24,6 +24,9 @@ jobs:
         with:
           python-version: "${{ matrix.python-version }}"
 
+      - name: "install dependencies"
+        run: pip install pytest
+
       - name: "Install native"
         if: matrix.type == 'native'
         run: >
@@ -46,4 +49,7 @@ jobs:
           pushd example_swig_skbuild &&
           ./build.sh &&
           export PYTHONPATH=$PWD &&
-          popd
+          popd &&
+
+      - name: "Run tests"
+        run: pytest tests
