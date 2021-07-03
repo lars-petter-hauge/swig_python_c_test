@@ -32,7 +32,7 @@ jobs:
         run: >
           pushd example_native &&
           ./build.sh &&
-          echo $PWD > PYTHON_PATH &&
+          echo $PWD > ${{GITHUB_WORKSPACE}}/PYTHON_PATH &&
           popd
         
       - name: "Install with swig"
@@ -40,7 +40,7 @@ jobs:
         run: >
           pushd example_swig &&
           ./build.sh &&
-          echo $PWD > PYTHON_PATH &&
+          echo $PWD > ${{GITHUB_WORKSPACE}}/PYTHON_PATH &&
           popd
       
       - name: "Install with swig and skbuild"
@@ -48,10 +48,10 @@ jobs:
         run: >
           pushd example_swig_skbuild &&
           ./build.sh &&
-          echo $PWD > PYTHON_PATH &&
+          echo $PWD > ${{GITHUB_WORKSPACE}}/PYTHON_PATH &&
           popd &&
 
       - name: "Run tests"
         run: >
-          export PYTHONPATH=$(cat PYTHON_PATH)
+          export PYTHONPATH=$(cat ${{GITHUB_WORKSPACE}}/PYTHON_PATH)
           pytest tests
