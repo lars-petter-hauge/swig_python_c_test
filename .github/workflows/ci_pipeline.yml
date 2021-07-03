@@ -1,0 +1,48 @@
+name: CI
+
+on: [pull_request]
+
+jobs:
+  tests:
+    name: "Python ${{ matrix.python-version }} on ${{ matrix.os }}"
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        python-version: ["3.6", "3.7", "3.8"]
+        os: [ ubuntu-latest ]
+        include:
+          - python-version: 3.6
+            os: macos-latest
+        type: ["native", "swig", "swig_skbuild"]
+
+    steps:
+      - uses: "actions/checkout@v2"
+        with:
+          fetch-depth: 0
+
+      - uses: "actions/setup-python@v2"
+        with:
+          python-version: "${{ matrix.python-version }}"
+
+      - name: "Install"
+        if: ${{ env.type == 'native' }}
+        run: >
+          pushd example_native
+          ./build.sh
+          export PYTHONPATH=$PWD
+          popd
+        if: ${{ env.type == 'swig' }}
+        run: >
+          pushd example_swig
+          ./build.sh
+          export PYTHONPATH=$PWD
+          popd
+        if: ${{ env.type == 'swig_skbuild' }}
+        run: >
+          pushd swig_skbuild
+          ./build.sh
+          export PYTHONPATH=$PWD
+          popd
+
+      - name: "Run test on ${{ matrix.os }} (${{ matrix.python-version }}) for {{ matrix.type }}"
+        run: "python -m tox"
