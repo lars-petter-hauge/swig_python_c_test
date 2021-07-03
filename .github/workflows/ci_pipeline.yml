@@ -13,7 +13,7 @@ jobs:
         #include:
         #  - python-version: 3.6
         #    os: macos-latest
-        type: ["native"] #, "swig", "swig_skbuild"]
+        type: ["native", "swig"] #, "swig", "swig_skbuild"]
 
     steps:
       - uses: "actions/checkout@v2"
