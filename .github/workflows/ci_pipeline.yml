@@ -4,7 +4,7 @@ on: [pull_request]
 
 jobs:
   tests:
-    name: "Python ${{ matrix.python-version }} on ${{ matrix.os }}"
+    name: "Python ${{ matrix.python-version }} on ${{ matrix.os }} running ${{ matrix.type }}"
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -13,7 +13,7 @@ jobs:
         #include:
         #  - python-version: 3.6
         #    os: macos-latest
-        type: ["native", "swig"] #, "swig", "swig_skbuild"]
+        type: ["native", "swig", "swig_skbuild"]
 
     steps:
       - uses: "actions/checkout@v2"
